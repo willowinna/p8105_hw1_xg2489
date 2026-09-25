@@ -4,6 +4,7 @@ output: github_document
 ---
 ```{r}
 library(tidyverse)
+#load library for future use
 ```
 
 ```{r}
@@ -14,6 +15,7 @@ This dataset contains 8 variables including species, island, bill length(mm), bi
 The size of the dataset is `r nrow(penguins)` rows and `r ncol(penguins)` columns.
 The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm.
 
+
 ```{r warning=FALSE}
 
 plot_df = 
@@ -22,7 +24,32 @@ plot_df =
     y = pull(penguins, flipper_length_mm),
     color = pull(penguins, species)
   )
+#use "pull" to choose specific variable
 ggplot(plot_df, aes(x = x, y = y, color = color)) + geom_point()
+#"geom_point()" is used to make scatter plot
 ggsave("flipper_bill_scatterplot.png")
 ```
+
+```{r warning=FALSE}
+
+df = 
+  tibble(
+    sample  = rnorm(10),                      
+    logic = sample > 0,                        
+    chara   = rep(c("aa", "bb", "cc"), length.out = 10),                   
+    factor   = factor(rep(c("low", "medium", "high"), length.out = 10))  
+    )
+
+sample_mean = mean(pull(df, sample))
+logic_mean = mean(pull(df, logic))
+chara_mean = mean(pull(df, chara))
+factor_mean = mean(pull(df, factor))
+sample_mean
+logic_mean
+chara_mean
+factor_mean
+```
+
+When taking the mean of each variable, it works for numeric vectors and logical vectors but returns "NA" in character vector and factor vector.
+
 
