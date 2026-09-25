@@ -11,12 +11,12 @@ library(tidyverse)
 data("penguins", package = "palmerpenguins")
 ```
 
-This dataset contains 8 variables including species, island, bill length(mm), bill depth(mm), flipper length(mm), body mass(g), sex and year. 
+This dataset contains 8 variables including species (Adelie, Chinstrap and Gentoo), island, bill length(mm), bill depth(mm), flipper length(mm), body mass(g), sex and year. 
 The size of the dataset is `r nrow(penguins)` rows and `r ncol(penguins)` columns.
 The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm.
 
 
-```{r warning=FALSE}
+```{r}
 
 plot_df = 
   tibble(
@@ -39,7 +39,7 @@ df =
     chara   = rep(c("aa", "bb", "cc"), length.out = 10),                   
     factor   = factor(rep(c("low", "medium", "high"), length.out = 10))  
     )
-
+# use "rep()" to generate repeated elements for the vector. "length,out" set the vector length to be 10.
 sample_mean = mean(pull(df, sample))
 logic_mean = mean(pull(df, logic))
 chara_mean = mean(pull(df, chara))
