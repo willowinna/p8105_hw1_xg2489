@@ -30,7 +30,7 @@ ggplot(plot_df, aes(x = x, y = y, color = color)) + geom_point()
 ggsave("flipper_bill_scatterplot.png")
 ```
 
-```{r warning=FALSE}
+```{r}
 
 df = 
   tibble(
@@ -50,6 +50,21 @@ chara_mean
 factor_mean
 ```
 
-When taking the mean of each variable, it works for numeric vectors and logical vectors but returns "NA" in character vector and factor vector.
+When taking the mean of each variable, it works for numeric vectors and logical vectors but returns "NA" in character vector and factor vector. For logical vectors, R treats "TRUE" and "FALSE" as "1" and "0" so their mean can be calculated.
+
+```{r, eval = FALSE}
+as.numeric(pull(df, logic))
+as.numeric(pull(df, chara))
+as.numeric(pull(df, factor))
+```
+
+
+When logic vector transforms to numeric vector, it converts "TRUE" to 1 and "FALSE" to 0 so it shows no "NA".
+
+When character vector transforms to numeric vector, it converts everything to "NA" as strings do not have a numerical meaning.
+
+When factor vector transforms to numeric vector, it converts "low","medium","high" to integers to show different factor levels so it also shows no "NA".
+
+"as.numeric" explains "mean()" behaviors. Logical vector coerces to 1 and 0, making "mean()" works successfully. Character vector turns "NA" causing "mean()" to fail. Factor vector returns internal integer levels while "mean()" still fails because the gap between different categories is unspecified so the mean of categories is statistically meaningless.
 
 
