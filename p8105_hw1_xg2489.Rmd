@@ -2,4 +2,27 @@
 title: "p8105_hw1_xg2489"
 output: github_document
 ---
+```{r}
+library(tidyverse)
+```
+
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+
+This dataset contains 8 variables including species, island, bill length(mm), bill depth(mm), flipper length(mm), body mass(g), sex and year. 
+The size of the dataset is `r nrow(penguins)` rows and `r ncol(penguins)` columns.
+The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm.
+
+```{r warning=FALSE}
+
+plot_df = 
+  tibble(
+    x = pull(penguins, bill_length_mm),
+    y = pull(penguins, flipper_length_mm),
+    color = pull(penguins, species)
+  )
+ggplot(plot_df, aes(x = x, y = y, color = color)) + geom_point()
+ggsave("flipper_bill_scatterplot.png")
+```
 
